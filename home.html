@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rachel’s Art Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Rachel Yu</h1>
+    <a href="#" class="down-arrow" aria-label="Scroll down" onclick="scrollDownLess(event)">
+      &#x25BC;
+    </a>
+  </section>
+
+  <!-- LAYOUT: sidebar + gallery -->
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <h2><a href="home.html">Rachel Yu</a></h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="home.html" class="active">Works</a>
+        <a href="about.html">About / Contact</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a href="https://x.com/your_username" target="_blank" aria-label="X">
+          <img src="icons/x-icon.svg" alt="" />
+        </a>
+        <a href="https://instagram.com/your_username" target="_blank" aria-label="Instagram">
+          <img src="icons/instagram-icon.svg" alt="" />
+        </a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <h2>Welcome to My Art World</h2>
+      <p>Rachel Yu | Durham, NC</p>
+
+      <div class="gallery">
+        <!-- Artworks 1–4 -->
+        <div class="thumb" data-title="My Artwork Title" data-date="12/4/2021" data-medium="Acrylic Painting">
+          <img src="images/art1.png" alt="Title of Artwork 1" />
+          <p>Title of Artwork 1</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting"
+          data-extra="images/art2_1.JPG">
+          <img src="images/art2.png" alt="Title of Artwork 2" />
+          <p>Title of Artwork 2</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art3.png" alt="Title of Artwork 3" />
+          <p>Title of Artwork 3</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art4.png" alt="Title of Artwork 4" />
+          <p>Title of Artwork 4</p>
+        </div>
+
+        <!-- Artworks 5–8 -->
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art5.png" alt="Title of Artwork 5" />
+          <p>Title of Artwork 5</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art6.png" alt="Title of Artwork 6" />
+          <p>Title of Artwork 6</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art7.png" alt="Title of Artwork 7" />
+          <p>Title of Artwork 7</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art8.png" alt="Title of Artwork 8" />
+          <p>Title of Artwork 8</p>
+        </div>
+
+        <!-- Artworks 9–12 -->
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art9.png" alt="Title of Artwork 9" />
+          <p>Title of Artwork 9</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art10.png" alt="Title of Artwork 10" />
+          <p>Title of Artwork 10</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art11.png" alt="Title of Artwork 11" />
+          <p>Title of Artwork 11</p>
+        </div>
+        <div class="thumb" data-title="My Artwork Title" data-date="date" data-medium="Acrylic Painting">
+          <img src="images/art12.png" alt="Title of Artwork 12" />
+          <p>Title of Artwork 12</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- IMAGE MODAL (lightbox) -->
+  <div id="image-modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div class="modal-images"></div>
+      <div class="modal-details">
+        <h3 class="modal-title"></h3>
+        <p class="modal-date"></p>
+        <p class="modal-medium"></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function scrollDownLess(e) {
+      e.preventDefault();
+      // Scroll down by 80% of the viewport height (adjust 0.8 as needed)
+      const offset = window.innerHeight * 1;
+      window.scrollBy({ top: offset, behavior: 'smooth' });
+    }
+  </script>
+
+  <script>
+    const modal = document.getElementById('image-modal');
+    const imagesContainer = modal.querySelector('.modal-images');
+    const titleEl = modal.querySelector('.modal-title');
+    const dateEl = modal.querySelector('.modal-date');
+    const mediumEl = modal.querySelector('.modal-medium');
+    const closeBtn = modal.querySelector('.modal-close');
+
+    document.querySelectorAll('.thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        imagesContainer.innerHTML = '';
+
+        // primary image
+        const img = thumb.querySelector('img');
+        const clone = img.cloneNode();
+        imagesContainer.appendChild(clone);
+
+        // extra image for art2 (if data-extra provided)
+        const extraSrc = thumb.dataset.extra;
+        if (extraSrc) {
+          const extraImg = document.createElement('img');
+          extraImg.src = extraSrc;
+          extraImg.alt = img.alt;
+          imagesContainer.appendChild(extraImg);
+        }
+
+        // metadata (if provided via data- attributes)
+        titleEl.textContent = thumb.dataset.title || '';
+        dateEl.textContent = thumb.dataset.date || '';
+        mediumEl.textContent = thumb.dataset.medium || '';
+
+        modal.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  </script>
+</body>
+
+</html>
