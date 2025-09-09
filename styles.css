@@ -171,7 +171,8 @@ html {
 .thumb p {
   text-align: center;
   color: #444;
-  font-size: 0.9rem;
+  font-size: 1.1rem;   /* larger */
+  font-weight: bold;   /* bold */
   margin: 0;
 }
 
